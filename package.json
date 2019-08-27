@@ -1,0 +1,15 @@
+{
+  "name": "react-ssr-demo",
+  "version": "1.0.0",
+  "description": "react-ssr-demo",
+  "main": "app.js",
+  "scripts": {
+    "start": "node ./app.js"
+  },
+  "keywords": [],
+  "author": "garen",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
