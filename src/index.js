@@ -1,3 +1,4 @@
+const Home = require("./containers/Home");
 const express = require('express');
 const app = express();
 

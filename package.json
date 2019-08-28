@@ -4,7 +4,7 @@
   "description": "react-ssr-demo",
   "main": "app.js",
   "scripts": {
-    "start": "node ./src/index.js"
+    "start": "node ./build/bundle.js"
   },
   "keywords": [],
   "author": "garen",
@@ -12,5 +12,15 @@
   "dependencies": {
     "express": "^4.17.1",
     "react": "^16.9.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "webpack": "^4.39.3",
+    "webpack-cli": "^3.3.7",
+    "webpack-node-externals": "^1.7.2"
   }
 }

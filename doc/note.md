@@ -42,6 +42,5 @@ CSR 中的react渲染
 SSR 中的react渲染
 浏览器发送请求 -> 服务器运行react代码生成的页面 -> 服务器返回页面
 
-
-
 ```
+2. 服务器端的webpack配置支持react组件
