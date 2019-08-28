@@ -44,3 +44,48 @@ SSR 中的react渲染
 
 ```
 2. 服务器端的webpack配置支持react组件
+```markdown
+安装的依赖包
+npm install webpack webpack-cli -D
+npm install babel-loader babel-core -D
+npm install babel-preset-react babel-preset-stage-0 babel-preset-env
+npm install webpack-node-externals
+
+配置文件
+module.exports = { 
+    mode: 'development', // 打包模式
+    target: 'node', // 打包目标是服务端文件
+    externals: [nodeExternals()], // 排除打包服务端的node_modules中引用的文件
+    entry: "./src/index.js",
+    output: {
+        filename: 'bundle.js',
+        path: path.resolve(__dirname, 'build')
+    },
+    module: {
+        rules: [
+            {
+                test: /\.js?$/,
+                loader: 'babel-loader',
+                exclude: /node_modules/,
+                options: {
+                    presets: ['react', 'stage-0', [
+                        'env', {
+                            targets: {
+                                browsers: ['last 2 versions']
+                            }
+                        }
+                    ]]
+                }
+            }
+        ]
+    }
+};
+
+// 打包命令
+webpack --config webpack.server.js
+
+// 修改npm start的启动命令
+node ./src/bundle.js
+
+
+```
