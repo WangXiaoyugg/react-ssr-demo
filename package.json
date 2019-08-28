@@ -4,8 +4,8 @@
   "description": "react-ssr-demo",
   "main": "app.js",
   "scripts": {
-    "start": "node ./build/bundle.js",
-    "build": "webpack --config webpack.server.js"
+    "start": "nodemon --watch ./build --exec node ./build/bundle.js",
+    "build": "webpack --config webpack.server.js --watch"
   },
   "keywords": [],
   "author": "garen",
@@ -21,6 +21,7 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
+    "nodemon": "^1.19.1",
     "webpack": "^4.39.3",
     "webpack-cli": "^3.3.7",
     "webpack-node-externals": "^1.7.2"

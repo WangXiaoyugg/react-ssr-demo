@@ -88,4 +88,16 @@ webpack --config webpack.server.js
 node ./src/bundle.js
 ```
 3. 实现服务端组件渲染
+4. 建立在虚拟dom的服务器渲染
+```markdown
+csr 渲染
+React代码在浏览器执行，消耗是用户浏览器的性能
+
+ssr 渲染
+react代码在服务器执行，消耗的是服务端的性能
+
+package.json的依赖包版本变化遇到问题，锁死版本，去stackoverflow找答案
+
+```
+5. webpack 的自动打包和服务器自动重启
 
