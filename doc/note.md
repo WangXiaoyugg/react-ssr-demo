@@ -31,5 +31,17 @@ CSR 的优势
 SSR 的优势
 - 首屏快，用户体验好
 - SEO效果好
+```
+
+## react 中的服务器渲染
+1. 在服务端编写react组件
+```markdown
+CSR 中的react渲染
+浏览器发送请求 -> 服务器返回HTML -> 浏览器发送bundle.js请求 -> 服务器返回bundle.js -> 浏览器执行bundle.js中的代码
+
+SSR 中的react渲染
+浏览器发送请求 -> 服务器运行react代码生成的页面 -> 服务器返回页面
+
+
 
 ```
