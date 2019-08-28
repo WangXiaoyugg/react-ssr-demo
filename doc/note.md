@@ -86,6 +86,6 @@ webpack --config webpack.server.js
 
 // 修改npm start的启动命令
 node ./src/bundle.js
-
-
 ```
+3. 实现服务端组件渲染
+
