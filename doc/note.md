@@ -88,6 +88,45 @@ webpack --config webpack.server.js
 node ./src/bundle.js
 ```
 3. 实现服务端组件渲染
+```markdown
+1. 更改src/containers/Home/index.js
+import React from 'react'
+
+const Home = () => {
+    return (<div>Home</div>)
+};
+
+export default Home;
+
+2. 更改 src/index.js
+import express from 'express';
+import React from 'react';
+import {renderToString} from 'react-dom/server';
+
+import Home from './containers/Home'
+const app = express();
+const content = renderToString(<Home />)
+
+
+app.get('/', (req, res) => {
+    res.send(
+        `<html>
+            <head>
+                <title>ssr</title>
+            </head>
+            <body>
+                ${content}
+            </body>
+        </html>
+        `
+    )
+});
+
+app.listen(8000, () => {
+    console.log("server is start at localhost:8000")
+});
+
+```
 4. 建立在虚拟dom的服务器渲染
 ```markdown
 csr 渲染
@@ -100,4 +139,212 @@ package.json的依赖包版本变化遇到问题，锁死版本，去stackoverfl
 
 ```
 5. webpack 的自动打包和服务器自动重启
+```markdown
+1. 安装依赖包
+yarn add nodemon npm-run-all -D
+2. 更改package.json 的scripts 字段
 
+"scripts": {
+    "dev": "npm-run-all --parallel dev:**",
+    "dev:start": "nodemon --watch ./build --exec node ./build/bundle.js",
+    "dev:build": "webpack --config webpack.server.js --watch"
+ },
+```
+
+## 同构的概念和梳理
+1. 什么是同构
+```markdown
+一套代码，在服务端执行一次，再浏览器端在执行一次
+```
+2. 在浏览器上执行一段js代码
+```markdown
+1. 更改src/index.js
+app.use(express.static('public'));
+
+app.get('/', (req, res) => {
+    res.send(
+        `<html>
+            <head>
+                <title>ssr</title>
+            </head>
+            <body>
+                ${content}
+                <script src="/index.js"></script>
+            </body>
+        </html>
+        `
+    )
+});
+2. 根目录新增 public 文件夹以及 public/index.js 文件
+```
+3. react代码在浏览器上运行
+```markdown
+1. 新建 src/client/index.js
+
+import React from 'react'
+import ReactDOM from 'react-dom'
+import Home from "../containers/Home"
+
+ReactDOM.hydrate(<Home/>, document.getElementById('root'));
+
+2. 修改 src/index.js
+app.get('/', (req, res) => {
+    res.send(
+        `<html>
+            <head>
+                <title>ssr</title>
+            </head>
+            <body>
+            <div id="root">${content}</div>
+            <script src="/index.js"></script>
+            </body>
+        </html>
+        `
+    )
+});
+
+3. 项目根路径新增 webpack.client.js
+const path = require('path');
+
+module.exports = {
+    mode: 'development',
+    entry: "./src/client/index.js",
+    output: {
+        filename: 'index.js',
+        path: path.resolve(__dirname, 'public')
+    },
+    module: {
+        rules: [
+            {
+                test: /\.js?$/,
+                loader: 'babel-loader',
+                exclude: /node_modules/,
+                options: {
+                    presets: ['react', 'stage-0', [
+                        'env', {
+                            targets: {
+                                browsers: ['last 2 versions']
+                            }
+                        }
+                    ]]
+                }
+            }
+        ]
+    }
+};
+
+4. 修改 package.json的 scripts 字段
+"scripts": {
+    "dev": "npm-run-all --parallel dev:**",
+    "dev:start": "nodemon --watch ./build --exec node ./build/bundle.js",
+    "dev:build:server": "webpack --config webpack.server.js --watch",
+    "dev:build:client": "webpack --config webpack.client.js --watch"
+  },
+```
+
+4. 代码优化和整理
+```markdown
+1. 安装依赖包 
+npm install webpack-merge - D
+
+2. 新建 webpack.base.js
+module.exports = {
+    module: {
+        rules: [
+            {
+                test: /\.js?$/,
+                loader: 'babel-loader',
+                exclude: /node_modules/,
+                options: {
+                    presets: ['react', 'stage-0', [
+                        'env', {
+                            targets: {
+                                browsers: ['last 2 versions']
+                            }
+                        }
+                    ]]
+                }
+            }
+        ]
+    }
+};
+
+
+3. 修改 webpack.client.js
+
+const path = require('path');
+const merge = require("webpack-merge");
+const baseConfig = require("./webpack.base");
+
+const clientConfig = {
+    mode: 'development',
+    entry: "./src/client/index.js",
+    output: {
+        filename: 'index.js',
+        path: path.resolve(__dirname, 'public')
+    },
+};
+module.exports = merge(baseConfig, clientConfig);
+4. 修改 webpack.server.js
+
+const path = require('path');
+const nodeExternals = require('webpack-node-externals');
+const merge = require("webpack-merge");
+const baseConfig = require("./webpack.base");
+
+const serverConfig = {
+    mode: 'development',
+    target: 'node', // 打包目标是服务端文件
+    externals: [nodeExternals()],
+    entry: "./src/server/index.js",
+    output: {
+        filename: 'bundle.js',
+        path: path.resolve(__dirname, 'build')
+    }
+};
+
+
+module.exports = merge(baseConfig, serverConfig);
+
+5. 移动src/index.js 到 src/server/index.js, 删除 src/index.js
+
+import express from 'express';
+import React from 'react';
+import {renderToString} from 'react-dom/server';
+
+import Home from '../containers/Home'
+const app = express();
+const content = renderToString(<Home />);
+
+app.use(express.static('public'));
+
+app.get('/', (req, res) => {
+    res.send(
+        `<html>
+            <head>
+                <title>ssr</title>
+            </head>
+            <body>
+            <div id="root">${content}</div>
+            <script src="/index.js"></script>
+            </body>
+        </html>
+        `
+    )
+});
+
+app.listen(8000, () => {
+    console.log("server is start at localhost:8000")
+});
+```
+
+5. 小结
+```markdown
+1. react 服务器端运行reat代码渲染出HTML
+2. 发送HTML给浏览器
+3. 浏览器接受HTML,并显示内容
+4. 浏览器加载js文件
+5. JS中的react代码在浏览器中重新执行
+6. js中的react代码接管页面
+
+```
