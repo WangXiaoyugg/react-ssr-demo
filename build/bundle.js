@@ -106,7 +106,7 @@ eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\n\nvar _axios = __webpack_require__(/*! axios */ \"axios\");\n\nvar _axios2 = _interopRequireDefault(_axios);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nvar instance = _axios2.default.create({\n    baseURL: '/'\n});\n\nexports.default = instance;\n\n//# sourceURL=webpack:///./src/client/request.js?");
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\n\nvar _axios = __webpack_require__(/*! axios */ \"axios\");\n\nvar _axios2 = _interopRequireDefault(_axios);\n\nvar _config = __webpack_require__(/*! ../config */ \"./src/config.js\");\n\nvar _config2 = _interopRequireDefault(_config);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nvar instance = _axios2.default.create({\n    baseURL: '/',\n    params: {\n        secret: _config2.default.secret\n    }\n});\n\nexports.default = instance;\n\n//# sourceURL=webpack:///./src/client/request.js?");
 
 /***/ }),
 
@@ -130,7 +130,7 @@ eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\nexports.logout = exports.login = exports.getHeaderInfo = undefined;\n\nvar _constants = __webpack_require__(/*! ./constants */ \"./src/components/Header/store/constants.js\");\n\nvar changeLogin = function changeLogin(value) {\n    return {\n        type: _constants.CHANGE_LOGIN,\n        value: value\n    };\n};\n\nvar getHeaderInfo = exports.getHeaderInfo = function getHeaderInfo() {\n    return function (dispatch, getState, axiosInstance) {\n        return axiosInstance.get(\"/api/isLogin.json?secret=PP87ANTIPIRATE\").then(function (resp) {\n            dispatch(changeLogin(resp.data.data.login));\n        });\n    };\n};\nvar login = exports.login = function login() {\n    return function (dispatch, getState, axiosInstance) {\n        return axiosInstance.get('/api/login.json?secret=PP87ANTIPIRATE').then(function (resp) {\n            dispatch(changeLogin(true));\n        });\n    };\n};\nvar logout = exports.logout = function logout() {\n    return function (dispatch, getState, axiosInstance) {\n        return axiosInstance.get('/api/logout.json?secret=PP87ANTIPIRATE').then(function (resp) {\n            dispatch(changeLogin(false));\n        });\n    };\n};\n\n//# sourceURL=webpack:///./src/components/Header/store/actions.js?");
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\nexports.logout = exports.login = exports.getHeaderInfo = undefined;\n\nvar _constants = __webpack_require__(/*! ./constants */ \"./src/components/Header/store/constants.js\");\n\nvar changeLogin = function changeLogin(value) {\n    return {\n        type: _constants.CHANGE_LOGIN,\n        value: value\n    };\n};\n\nvar getHeaderInfo = exports.getHeaderInfo = function getHeaderInfo() {\n    return function (dispatch, getState, axiosInstance) {\n        return axiosInstance.get(\"/api/isLogin.json\").then(function (resp) {\n            console.log(\"resp login:\", resp);\n            dispatch(changeLogin(resp.data.data.login));\n        });\n    };\n};\nvar login = exports.login = function login() {\n    return function (dispatch, getState, axiosInstance) {\n        return axiosInstance.get('/api/login.json').then(function (resp) {\n            dispatch(changeLogin(true));\n        });\n    };\n};\nvar logout = exports.logout = function logout() {\n    return function (dispatch, getState, axiosInstance) {\n        return axiosInstance.get('/api/logout.json').then(function (resp) {\n            dispatch(changeLogin(false));\n        });\n    };\n};\n\n//# sourceURL=webpack:///./src/components/Header/store/actions.js?");
 
 /***/ }),
 
@@ -170,6 +170,18 @@ eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});
 
 /***/ }),
 
+/***/ "./src/config.js":
+/*!***********************!*\
+  !*** ./src/config.js ***!
+  \***********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\nexports.default = {\n    secret: 'PP87ANTIPIRATE'\n};\n\n//# sourceURL=webpack:///./src/config.js?");
+
+/***/ }),
+
 /***/ "./src/containers/Home/index.js":
 /*!**************************************!*\
   !*** ./src/containers/Home/index.js ***!
@@ -190,7 +202,7 @@ eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\nexports.getHomeList = undefined;\n\nvar _constants = __webpack_require__(/*! ./constants */ \"./src/containers/Home/store/constants.js\");\n\nvar changeList = function changeList(list) {\n    return {\n        type: _constants.CHANGE_LIST,\n        list: list\n    };\n};\n\nvar getHomeList = exports.getHomeList = function getHomeList(server) {\n    // http://47.95.113.63/ssr/api/news.json?secret=PP87ANTIPIRATE\n    return function (dispatch, getState, axiosInstance) {\n        return axiosInstance.get('/api/news.json?secret=PP87ANTIPIRATE').then(function (res) {\n            var list = res.data.data;\n            dispatch(changeList(list));\n        });\n    };\n};\n\n//# sourceURL=webpack:///./src/containers/Home/store/actions.js?");
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\nexports.getHomeList = undefined;\n\nvar _constants = __webpack_require__(/*! ./constants */ \"./src/containers/Home/store/constants.js\");\n\nvar changeList = function changeList(list) {\n    return {\n        type: _constants.CHANGE_LIST,\n        list: list\n    };\n};\n\nvar getHomeList = exports.getHomeList = function getHomeList(server) {\n    return function (dispatch, getState, axiosInstance) {\n        return axiosInstance.get('/api/news.json').then(function (res) {\n            var list = res.data.data;\n            dispatch(changeList(list));\n        });\n    };\n};\n\n//# sourceURL=webpack:///./src/containers/Home/store/actions.js?");
 
 /***/ }),
 
@@ -250,7 +262,7 @@ eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\nexports.getTranslationList = undefined;\n\nvar _constants = __webpack_require__(/*! ./constants */ \"./src/containers/Translation/store/constants.js\");\n\nvar changeList = function changeList(list) {\n    return {\n        type: _constants.CHANGE_LIST,\n        list: list\n    };\n};\n\nvar getTranslationList = exports.getTranslationList = function getTranslationList() {\n    return function (dispatch, getState, axiosInstance) {\n        return axiosInstance.get('/api/translations.json?secret=PP87ANTIPIRATE').then(function (resp) {\n            if (resp.data.success) {\n                var list = resp.data.data;\n                dispatch(changeList(list));\n            } else {\n                var _list = resp.data.data;\n                dispatch(changeList(_list));\n            }\n        });\n    };\n};\n\n//# sourceURL=webpack:///./src/containers/Translation/store/actions.js?");
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\nexports.getTranslationList = undefined;\n\nvar _constants = __webpack_require__(/*! ./constants */ \"./src/containers/Translation/store/constants.js\");\n\nvar changeList = function changeList(list) {\n    return {\n        type: _constants.CHANGE_LIST,\n        list: list\n    };\n};\n\nvar getTranslationList = exports.getTranslationList = function getTranslationList() {\n    return function (dispatch, getState, axiosInstance) {\n        return axiosInstance.get('/api/translations.json').then(function (resp) {\n            if (resp.data.success) {\n                var list = resp.data.data;\n                dispatch(changeList(list));\n            } else {\n                var _list = resp.data.data;\n                dispatch(changeList(_list));\n            }\n        });\n    };\n};\n\n//# sourceURL=webpack:///./src/containers/Translation/store/actions.js?");
 
 /***/ }),
 
@@ -322,7 +334,7 @@ eval("\n\nvar _express = __webpack_require__(/*! express */ \"express\");\n\nvar
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\n\nvar _axios = __webpack_require__(/*! axios */ \"axios\");\n\nvar _axios2 = _interopRequireDefault(_axios);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nfunction createInstance(req) {\n    return _axios2.default.create({\n        baseURL: 'http://47.95.113.63/ssr',\n        headers: {\n            cookie: req.get('cookie') || ''\n        }\n    });\n}\n\nexports.default = createInstance;\n\n//# sourceURL=webpack:///./src/server/request.js?");
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\n\nvar _axios = __webpack_require__(/*! axios */ \"axios\");\n\nvar _axios2 = _interopRequireDefault(_axios);\n\nvar _config = __webpack_require__(/*! ../config */ \"./src/config.js\");\n\nvar _config2 = _interopRequireDefault(_config);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nfunction createInstance(req) {\n    return _axios2.default.create({\n        baseURL: 'http://47.95.113.63/ssr',\n        headers: {\n            cookie: req.get('cookie') || ''\n        },\n        params: {\n            secret: _config2.default.secret\n        }\n    });\n}\n\nexports.default = createInstance;\n\n//# sourceURL=webpack:///./src/server/request.js?");
 
 /***/ }),
 
