@@ -1,5 +1,6 @@
 import React from "react";
 import {StaticRouter, Route, matchPath} from 'react-router-dom'
+import {matchRoutes} from 'react-router-config'
 import {renderToString} from "react-dom/server";
 import {Provider} from 'react-redux';
 import Routes from "../routes";
@@ -12,14 +13,9 @@ export const render = (req) => {
     // store填充数据是什么，结合用户请求的路由
     // 访问login 返回login 的数据， 访问home 返回home 数据
     // 根据路由的路径往store加数据
-    const matchRoutes = [];
+    const matchedRoutes =matchRoutes(Routes, req.path);
 
-    Routes.some(route => {
-        const match = matchPath(req.path);
-        if(match) {
-            matchRoutes.push(route)
-        }
-    });
+
     // 让matchRoutes 所有组件的loadData执行一次，改变store;
 
     const content = renderToString((
