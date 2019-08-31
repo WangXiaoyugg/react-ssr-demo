@@ -1,14 +1,13 @@
 import React from 'react'
 import Header from '../../components/Header'
 
-const Home = () => {
+const Login = () => {
     return (
         <div>
             <Header />
-            <p>Home Page</p>
-            <button onClick={() => alert('Click Me')}>click Me</button>
+            <h1>Login Page</h1>
         </div>
     )
 };
 
-export default Home;
+export default Login;
