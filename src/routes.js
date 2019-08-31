@@ -12,7 +12,7 @@ export default [
     },
     {
         path: '/login',
-        component: Home,
+        component: Login,
         exact: true,
         key: 'login',
     },
