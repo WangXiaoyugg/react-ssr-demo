@@ -29,6 +29,11 @@ class Home extends Component{
     }
 }
 
+
+Home.loadData = () => {
+    //  负责在服务端渲染时获取数据
+};
+
 const mapStateToProps = (state) => ({
    list: state.home.newsList,
 });

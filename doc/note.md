@@ -379,3 +379,14 @@ app.listen(8000, () => {
 ```
 2. 同构项目中引用redux
 3. 复用store代码
+4. 构建redux项目结构
+5. 流程复习和问题分析
+```markdown
+- 服务器接受到请求，此时store 是空的
+- 服务器不会执行componentDidMount, 不会获取列表数据
+- 客户端代码运行，store依然是空的
+- 客户端执行 componentDidMount, 列表数据被获取
+- store的列表数据被更新
+- 客户端渲染出 store 的列表数据对应的列表
+
+```
