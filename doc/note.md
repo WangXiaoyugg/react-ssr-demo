@@ -399,3 +399,4 @@ app.listen(8000, () => {
 2. 服务端请求和客户端请求的不同处理
 3. axios 的 instance 使用
 4. redux-thunk 的 withExtraArgument
+5. renderRoutes 方法实现对多级路由的支持

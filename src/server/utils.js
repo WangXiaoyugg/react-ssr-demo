@@ -1,6 +1,7 @@
 import React from "react";
 import {StaticRouter, Route} from 'react-router-dom'
 import {renderToString} from "react-dom/server";
+import {renderRoutes} from 'react-router-config'
 import {Provider} from 'react-redux';
 
 export const render = (routes, store, req) => {
@@ -9,9 +10,7 @@ export const render = (routes, store, req) => {
             <Provider store={store}>
                 <StaticRouter location={req.path} context={{}}>
                     <div>
-                        {routes.map(route => {
-                            return <Route {...route} key={route.key}/>
-                        })}
+                        {renderRoutes(routes)}
                     </div>
                 </StaticRouter>
             </Provider>

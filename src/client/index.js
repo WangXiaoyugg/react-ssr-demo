@@ -5,15 +5,14 @@ import Routes from '../routes'
 import {Provider} from 'react-redux';
 import Home from "../containers/Home"
 import {getClientStore} from '../store'
+import {renderRoutes} from "react-router-config";
 
 const App = () => {
     return (
         <Provider store={getClientStore()}>
             <BrowserRouter>
                 <div>
-                {Routes.map(route => {
-                    return <Route {...route} key={route.key}/>
-                })}
+                    {renderRoutes(Routes)}
                 </div>
             </BrowserRouter>
         </Provider>
