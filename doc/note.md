@@ -401,3 +401,18 @@ app.listen(8000, () => {
 4. redux-thunk 的 withExtraArgument
 5. renderRoutes 方法实现对多级路由的支持
 6. 登陆功能开发
+7. 登陆接口打通
+8. 登陆状态切换
+```markdown
+1. 刚进入页面，处于非登陆状态
+2. 用户点击登陆按钮， 进行登陆操作
+    2.1 浏览器发送请求给node server
+    2.2 转发api 给服务器， 进行登陆
+    2.3 api 服务器生成了cookie
+    2.4 浏览器存在cookie, 登陆成功
+3. 当用户重新刷新页面的时候
+    3.1 浏览器请求html, 携带了cookie
+    3.2  node server 进行服务器渲染
+    3.3 进行服务器渲染， 首先要去api服务器取数据(没有携带cookie)    
+```
+9. 解决cookie传递问题

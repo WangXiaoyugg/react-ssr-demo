@@ -13,6 +13,6 @@ const App = (props) => {
 };
 
 App.loadData = (store) => {
-  store.dispatch(actions.getHeaderInfo());
+  return store.dispatch(actions.getHeaderInfo());
 };
 export default App;

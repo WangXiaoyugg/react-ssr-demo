@@ -19,7 +19,7 @@ app.use('/api',proxy('http://47.95.113.63', {
 
 app.get('*', (req, res) => {
 
-    const store = getStore();
+    const store = getStore(req);
     // 让matchRoutes 所有组件的loadData执行一次，改变store;
     const matchedRoutes = matchRoutes(Routes, req.path);
     const promises = [];
