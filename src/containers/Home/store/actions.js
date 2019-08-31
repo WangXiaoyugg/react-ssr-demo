@@ -1,5 +1,7 @@
 import axios from 'axios'
 import {CHANGE_LIST} from './constants'
+import clientAxios from '../../../client/request'
+import serverAxios from '../../../server/request';
 
 const changeList = (list) => ({
     type: CHANGE_LIST,
@@ -7,14 +9,9 @@ const changeList = (list) => ({
 });
 export const getHomeList = (server) => {
     // http://47.95.113.63/ssr/api/news.json?secret=PP87ANTIPIRATE
-    let url;
-    if(server) {
-        url = 'http://47.95.113.63/ssr/api/news.json?secret=PP87ANTIPIRATE';
-    } else {
-        url = '/api/news.json?secret=PP87ANTIPIRATE';
-    }
+    let request = server ? serverAxios : clientAxios;
     return (dispatch) => {
-        return axios.get(url)
+        return request.get('/api/news.json?secret=PP87ANTIPIRATE')
             .then((res) => {
                 const list = res.data.data;
                 dispatch(changeList(list));
