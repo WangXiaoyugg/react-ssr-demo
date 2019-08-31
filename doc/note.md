@@ -400,3 +400,4 @@ app.listen(8000, () => {
 3. axios 的 instance 使用
 4. redux-thunk 的 withExtraArgument
 5. renderRoutes 方法实现对多级路由的支持
+6. 登陆功能开发
