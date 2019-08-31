@@ -372,5 +372,9 @@ app.listen(8000, () => {
 ## ssr 框架和Redux结合
 1. 什么是中间层？
 ```markdown
+浏览器  -> node server(中间层) -> java server
+视图层      获取数据拼装数据           底层计算和服务 
 
+添加中间层，系统变得更加复杂，前端还要维护 node server 的稳定性
 ```
+2. 同构项目中引用redux
