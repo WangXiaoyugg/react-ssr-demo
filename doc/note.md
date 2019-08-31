@@ -398,3 +398,4 @@ app.listen(8000, () => {
 1. 使用代理，让node中间层获取数据
 2. 服务端请求和客户端请求的不同处理
 3. axios 的 instance 使用
+4. redux-thunk 的 withExtraArgument
