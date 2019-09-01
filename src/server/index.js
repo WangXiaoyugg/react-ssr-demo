@@ -18,6 +18,7 @@ app.use('/api',proxy('http://47.95.113.63', {
 }));
 
 app.get('*', (req, res) => {
+    console.log("req. path:", req.path);
 
     const store = getStore(req);
     // 让matchRoutes 所有组件的loadData执行一次，改变store;
@@ -35,7 +36,7 @@ app.get('*', (req, res) => {
 
     // 一个页面要加载A,B,C,D 四个组件，
     Promise.all(promises).then(() => {
-       const context = {};
+       const context = {css: []};
        const html = render(Routes,store, req, context);
 
        if(context.action === 'REPLACE') {
@@ -49,6 +50,8 @@ app.get('*', (req, res) => {
            res.send(html);
        }
        res.send(html);
+    }).catch(err => {
+        console.log("error", err);
     })
 });
 

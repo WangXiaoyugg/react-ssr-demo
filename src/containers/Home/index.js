@@ -7,7 +7,7 @@ class Home extends Component{
 
     componentWillMount() {
         if(this.props.staticContext) {
-            this.props.staticContext.css = styles._getCss();
+            this.props.staticContext.css.push(styles._getCss());
         }
     }
 
@@ -28,7 +28,7 @@ class Home extends Component{
 
     render() {
         return (
-            <div className={styles.home}>
+            <div className={styles.test}>
                 { this.getList() }
                 <button onClick={() => alert('Click Me')}>click Me</button>
             </div>
