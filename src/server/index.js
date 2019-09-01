@@ -25,10 +25,15 @@ app.get('*', (req, res) => {
     const promises = [];
     matchedRoutes.forEach(item => {
         if (item.route.loadData) {
-            promises.push(item.route.loadData(store));
+            let promise = new Promise((resolve, reject) => {
+                item.route.loadData(store).then(resolve).catch(resolve);
+            });
+            promises.push(promise);
         }
     });
 
+
+    // 一个页面要加载A,B,C,D 四个组件，
     Promise.all(promises).then(() => {
        const context = {};
        const html = render(Routes,store, req, context);
@@ -44,7 +49,7 @@ app.get('*', (req, res) => {
            res.send(html);
        }
        res.send(html);
-    });
+    })
 });
 
 app.listen(8000, () => {
