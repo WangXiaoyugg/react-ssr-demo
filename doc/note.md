@@ -438,5 +438,35 @@ description  提升排名的标题的吸引力,转化率
 2. 链接的内容和当前页面增加相关性，内部链接增加相关性，外部链接增加数量
 3. 多媒体，图片保持一定数量，增加网站丰富性
 ```
-
+4. 总结
+```markdown
+学习的知识点
+1. SSR是什么，CSR是什么，CSR和SSR的优势劣势
+2. 服务端写react组件，搭建服务器，客户端的webpack配置， react能进行服务端渲染，
+是建立在虚拟dom之上， 优化webpack配置的自动重启和 使用npm-run-all提升开发效率
+3. 同构是什么，在浏览器上执行react代码，在服务器上执行react代码，代码优化和总结
+4. SSR中渲染的路由，多页面路由跳转，使用link标签串联路由
+5. 什么是中间层， 同构项目引入redux, store代码的复用，中大型redux代码结构，
+异步数据的服务端渲染和路由重构，favicon和多级路由处理，数据的注水和脱水
+6. 使用proxy代理做中间层，客户端和服务端处理请求的差异，axios中instance的使用
+redux-thunk的 withExtraArguments的妙用，renderRoutes的多级路由支持，登陆功能开发
+解决cookie传递问题，翻译列表页面开发
+7. secret统一管理，借助context实现404页面，实现服务器重定向，数据请求丢失的处理
+8. 支持css样式修饰，实现css样式的服务端渲染，多组件的css样式渲染，修复loadData的潜在问题，
+使用高阶组件优化代码，列表样式的增加
+9. 什么是seo, title和 description的作用，如何做好seo， react-helmet的使用
+```
+5. 项目真的要使用SSR?
+```markdown
+SSR 性能开销高，需要更多的服务器成本
+SSR 出现BUG, 定位困难
+SSR 需要更高的开发成本，需要一个前端，后端，nodejs工程师
+```
+### 解决预渲染解决SEO问题的新思路
+1. 普通的react项目不做SSR
+2. 浏览器爬虫来了，在预渲染服务器(prerender)上获取渲染好的html
+3. 使用prerender依赖包
+4. 使用 nginx 区分普通用户和爬虫，通过User-Agent, IP识别
+5. 只是希望SEO效果好，不需要首屏加载快，
+6. prerender.io 的网站，提供深入学习prerender 的知识
 

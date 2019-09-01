@@ -21,9 +21,12 @@ app.get('*', (req, res) => {
     console.log("req. path:", req.path);
 
     const store = getStore(req);
+
+
     // 让matchRoutes 所有组件的loadData执行一次，改变store;
     const matchedRoutes = matchRoutes(Routes, req.path);
     const promises = [];
+
     matchedRoutes.forEach(item => {
         if (item.route.loadData) {
             let promise = new Promise((resolve, reject) => {
@@ -32,6 +35,7 @@ app.get('*', (req, res) => {
             promises.push(promise);
         }
     });
+
 
 
     // 一个页面要加载A,B,C,D 四个组件，
@@ -49,7 +53,6 @@ app.get('*', (req, res) => {
        } else {
            res.send(html);
        }
-       res.send(html);
     }).catch(err => {
         console.log("error", err);
     })
