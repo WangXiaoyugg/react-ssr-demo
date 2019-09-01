@@ -1,8 +1,9 @@
-import React, {Component} from 'react'
+import React, {Component, Fragment} from 'react'
 import {connect} from 'react-redux'
 import {getHomeList} from "./store/actions";
 import styles from './style.css';
-import withStyles from '../../withStyles.js'
+import withStyles from '../../withStyles.js';
+import {Helmet} from "react-helmet";
 
 class Home extends Component{
 
@@ -24,9 +25,17 @@ class Home extends Component{
 
     render() {
         return (
-            <div className={styles.container}>
-                { this.getList() }
-            </div>
+            <Fragment>
+                <Helmet>
+                    <meta charSet="utf-8" />
+                    <title>react ssr demo home page</title>
+                    <meta name="description" content="this is a easy react-ssr-demo home page"/>
+                </Helmet>
+                <div className={styles.container}>
+                    { this.getList() }
+                </div>
+            </Fragment>
+
         )
     }
 }

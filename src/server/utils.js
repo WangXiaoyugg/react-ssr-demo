@@ -3,6 +3,7 @@ import {StaticRouter, Route} from 'react-router-dom'
 import {renderToString} from "react-dom/server";
 import {renderRoutes} from 'react-router-config'
 import {Provider} from 'react-redux';
+import {Helmet} from "react-helmet";
 
 export const render = (routes, store, req, context) => {
 
@@ -16,13 +17,15 @@ export const render = (routes, store, req, context) => {
         </Provider>
     ));
 
+    const helmet = Helmet.renderStatic();
+
     const cssStr = context.css.length ? context.css.join("\n") : "";
 
     return (
         `<html lang="zh-cn">
                 <head>
-                    <title>react-ssr-demo</title>
-                    <meta name="description" content="this is a easy react-ssr-demo, you can learn react ssr by it"/>
+                     ${helmet.title.toString()}
+                     ${helmet.meta.toString()}
                 </head>
                 <body>
                 <div id="root">${content}</div>
