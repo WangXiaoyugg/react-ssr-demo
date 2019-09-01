@@ -30,7 +30,16 @@ app.get('*', (req, res) => {
     });
 
     Promise.all(promises).then(() => {
-       res.send(render(Routes,store, req));
+       const context = {};
+       const html = render(Routes,store, req, context);
+
+       if (context.NOT_FOUND) {
+           res.status(404);
+           res.send(html)
+       } else {
+           res.send(html);
+       }
+       res.send(html);
     });
 });
 

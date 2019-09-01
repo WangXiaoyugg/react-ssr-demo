@@ -8,7 +8,6 @@ export const getHeaderInfo = () => {
     return (dispatch, getState, axiosInstance) => {
         return axiosInstance.get("/api/isLogin.json")
             .then((resp) => {
-                console.log("resp login:", resp);
                 dispatch(changeLogin(resp.data.data.login));
             })
     }
