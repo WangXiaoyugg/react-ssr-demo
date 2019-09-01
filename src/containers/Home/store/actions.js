@@ -5,7 +5,7 @@ const changeList = (list) => ({
     list
 });
 
-export const getHomeList = (server) => {
+export const getHomeList = () => {
     return (dispatch, getState, axiosInstance) => {
         return axiosInstance.get('/api/news.json')
             .then((res) => {
