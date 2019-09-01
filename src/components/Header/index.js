@@ -3,14 +3,10 @@ import {Link} from "react-router-dom";
 import {connect} from 'react-redux';
 import {actions} from "./store";
 import styles from './style.css';
+import withStyles from '../../withStyles'
 
 class Header extends Component {
 
-    componentWillMount() {
-        if(this.props.staticContext) {
-            this.props.staticContext.css.push(styles._getCss());
-        }
-    }
 
     componentDidMount() {
 
@@ -33,7 +29,8 @@ class Header extends Component {
         )
     }
 
-};
+}
+
 const mapStateToProps = (state) => ({
     login: state.head.login
 });
@@ -45,4 +42,4 @@ const mapDispatchToProps = (dispatch) => ({
         dispatch(actions.logout())
     }
 });
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(Header, styles));
