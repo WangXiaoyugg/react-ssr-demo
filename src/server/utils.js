@@ -21,8 +21,8 @@ export const render = (routes, store, req, context) => {
     return (
         `<html lang="zh-cn">
                 <head>
-                    <title>ssr</title>
-                    <style>${cssStr}</style>
+                    <title>react-ssr-demo</title>
+                    <meta name="description" content="this is a easy react-ssr-demo, you can learn react ssr by it"/>
                 </head>
                 <body>
                 <div id="root">${content}</div>
