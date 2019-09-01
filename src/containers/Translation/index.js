@@ -11,7 +11,7 @@ class Translation extends Component {
     getList(list) {
         return (
             list.map(item => (
-                <div key={item.id}>{item.title}</div>
+                <div key={item.id} className={styles.item}>{item.title}</div>
             ))
         )
     }
@@ -24,7 +24,7 @@ class Translation extends Component {
 
     render() {
         const {list, login} = this.props;
-        return login ?  <div className={styles.test}>{this.getList(list)}</div>: <Redirect to='/' />
+        return login ?  <div className={styles.container}>{this.getList(list)}</div>: <Redirect to='/' />
     }
 
 }

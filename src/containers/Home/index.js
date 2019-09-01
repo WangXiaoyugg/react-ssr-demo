@@ -17,16 +17,15 @@ class Home extends Component{
         const {list} = this.props;
         return list.map(item => {
             return (
-                <div key={item.id} >{item.title}</div>
+                <div key={item.id} className={styles.item}>{item.title}</div>
             )
         })
     }
 
     render() {
         return (
-            <div className={styles.test}>
+            <div className={styles.container}>
                 { this.getList() }
-                <button onClick={() => alert('Click Me')}>click Me</button>
             </div>
         )
     }
