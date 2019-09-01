@@ -37,10 +37,6 @@ class Home extends Component{
 }
 
 
-Home.loadData = (store) => {
-    //  负责在服务端渲染时获取数据
-    return store.dispatch(getHomeList())
-};
 
 const mapStateToProps = (state) => ({
    list: state.home.newsList,
@@ -52,4 +48,10 @@ const mapDispatchToProps = (dispatch) => ({
     }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+const ExportedHome = connect(mapStateToProps, mapDispatchToProps)(Home);
+ExportedHome.loadData = (store) => {
+    //  负责在服务端渲染时获取数据
+    return store.dispatch(getHomeList())
+};
+
+export default ExportedHome
