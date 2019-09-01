@@ -6,21 +6,23 @@ import {Provider} from 'react-redux';
 
 export const render = (routes, store, req, context) => {
 
-        const content = renderToString((
-            <Provider store={store}>
-                <StaticRouter location={req.path} context={context}>
-                    <div>
-                        {renderRoutes(routes)}
-                    </div>
-                </StaticRouter>
-            </Provider>
-        ));
+    const content = renderToString((
+        <Provider store={store}>
+            <StaticRouter location={req.path} context={context}>
+                <div>
+                    {renderRoutes(routes)}
+                </div>
+            </StaticRouter>
+        </Provider>
+    ));
 
+    const cssStr = context.css ? context.css : "";
 
-        return (
-            `<html lang="zh-cn">
+    return (
+        `<html lang="zh-cn">
                 <head>
                     <title>ssr</title>
+                    <style>${cssStr}</style>
                 </head>
                 <body>
                 <div id="root">${content}</div>
@@ -33,5 +35,5 @@ export const render = (routes, store, req, context) => {
                 </body>
             </html>
             `
-        )
+    )
 };
